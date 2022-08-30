@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
-    "dev": "webpack serve"
+    "dev": "webpack serve",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@babel/preset-react": "^7.18.6",
@@ -36,7 +37,7 @@
     "eslint": "^8.23.0",
     "eslint-plugin-react": "^7.31.1",
     "fork-ts-checker-webpack-plugin": "^7.2.13",
-    "husky": "^8.0.1",
+    "husky": "^8.0.0",
     "less": "^4.1.3",
     "less-loader": "^11.0.0",
     "mini-css-extract-plugin": "^2.6.1",
