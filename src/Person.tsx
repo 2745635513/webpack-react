@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './style/index.less';
 function Person() {
   const [user, setUser] = useState("张三");
   return (

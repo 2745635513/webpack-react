@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: isDevelopment ? 'development' : 'production',
@@ -19,10 +20,15 @@ module.exports = {
       template: './index.html'
     }),
     new ForkTsCheckerWebpackPlugin(),
-    isDevelopment && new ReactRefreshWebpackPlugin()
+    isDevelopment && new ReactRefreshWebpackPlugin(),
+    !isDevelopment && new MiniCssExtractPlugin(
+      {
+        filename: "[name].[contenthash].css"
+      }
+    )
   ].filter(Boolean),
   output: {
-    filename: "[name].bundle.[contenthash].js",
+    filename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
   },
@@ -34,8 +40,7 @@ module.exports = {
       {
         test: /\.less$/i,
         use: [
-          // compiles Less to CSS
-          "style-loader",
+          isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
           "css-loader",
           "less-loader",
         ],

@@ -7,3 +7,5 @@
 - react热更新
 - 强缓存优化
 - css 单独打包
+- git hook
+- commit lint
