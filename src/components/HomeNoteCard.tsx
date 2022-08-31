@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "antd";
-import { NoteCard } from "../interface/Home";
+import { NoteCard } from "../interface/home";
 import '../style/HomeNoteCard.less';
 interface NoteCardProps {
   ele: NoteCard;
