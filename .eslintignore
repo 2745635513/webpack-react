@@ -1,3 +1,5 @@
 .eslintrc.js
 webpack.config.js
 commitlint.config.js
+package.json
+node_modules/

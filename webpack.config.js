@@ -46,6 +46,13 @@ module.exports = {
         ],
       },
       {
+        test: /\.css$/i,
+        use: [
+          isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
+          "css-loader",
+        ],
+      },
+      {
         test: /\.[jt]sx?$/,
         exclude: /node_modules/,
         use: [
