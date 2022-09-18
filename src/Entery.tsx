@@ -1,4 +1,3 @@
-import 'antd/dist/antd.css'
 import './style/index.less';
 import NavHeader from './layout/NavHeader';
 import NavFooter from './layout/NavFooter';

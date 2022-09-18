@@ -1,31 +1,33 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const isDevelopment = process.env.NODE_ENV !== 'production';
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+const isDevelopment = process.env.NODE_ENV !== "production";
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+// const BundleAnalyzerPlugin =
+//   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 module.exports = {
-  mode: isDevelopment ? 'development' : 'production',
+  mode: isDevelopment ? "development" : "production",
   devServer: {
     hot: true,
   },
   entry: {
     index: "./src/index.tsx",
   },
-  devtool: isDevelopment ? 'inline-source-map' : false,
+  devtool: isDevelopment ? "inline-source-map" : false,
   plugins: [
     new HtmlWebpackPlugin({
       title: "部署本地webpack",
-      template: './index.html'
+      template: "./index.html",
     }),
+    // new BundleAnalyzerPlugin(),
     new ForkTsCheckerWebpackPlugin(),
     isDevelopment && new ReactRefreshWebpackPlugin(),
-    !isDevelopment && new MiniCssExtractPlugin(
-      {
-        filename: "[name].[contenthash].css"
-      }
-    )
+    !isDevelopment &&
+      new MiniCssExtractPlugin({
+        filename: "[name].[contenthash].css",
+      }),
   ].filter(Boolean),
   output: {
     filename: "[name].[contenthash].js",
@@ -33,7 +35,7 @@ module.exports = {
     clean: true,
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.json', '.js']
+    extensions: [".tsx", ".ts", ".json", ".js"],
   },
   module: {
     rules: [
@@ -42,7 +44,14 @@ module.exports = {
         use: [
           isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
           "css-loader",
-          "less-loader",
+          {
+            loader: "less-loader",
+            options: {
+              lessOptions:{
+                javascriptEnabled: true,
+              }
+            },
+          },
         ],
       },
       {
@@ -57,13 +66,15 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: require.resolve('babel-loader'),
+            loader: require.resolve("babel-loader"),
             options: {
-              plugins: [isDevelopment && require.resolve('react-refresh/babel')].filter(Boolean),
+              plugins: [
+                isDevelopment && require.resolve("react-refresh/babel"),
+              ].filter(Boolean),
             },
           },
         ],
       },
-    ]
-  }
+    ],
+  },
 };
